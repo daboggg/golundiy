@@ -4,7 +4,9 @@ from aiogram_dialog import Window, DialogManager
 from aiogram_dialog.widgets.kbd import Row, Button
 from aiogram_dialog.widgets.text import Const, Format
 
+from bot.send_message import send_message
 from bot.state_groups import MainSG
+from parsers.anekdot_ru import get_random_phrase
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
@@ -16,6 +18,19 @@ async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
 async def on_period_selected(callback: CallbackQuery, button: Button,
                               manager: DialogManager) -> None:
     print(button.widget_id)
+
+    apscheduler = manager.middleware_data.get('apscheduler')
+
+    apscheduler.add_job(send_message,
+                        trigger='cron',
+                        # run_date=datetime.now() + timedelta(seconds=10),
+                        # hour=11,
+                        minute='*',
+                        kwargs={
+                            'msg': 'test_message',
+                            'func': get_random_phrase
+                        })
+
     # manager.dialog_data["selected_variant"] = await button.text.render_text(manager.dialog_data, manager)
     await manager.switch_to(MainSG.result)
 
