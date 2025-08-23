@@ -10,4 +10,4 @@ bot = Bot(token=settings.bots.bot_token, default=DefaultBotProperties(parse_mode
 
 # scheduler = AsyncIOScheduler(timezone="Europe/Moscow", jobstores={'sqlalchemy': SQLAlchemyJobStore(url=settings.db.db_url)})
 scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
-scheduler.add_jobstore('sqlalchemy', url='sqlite:///example.sqlite')
+scheduler.add_jobstore('sqlalchemy', url=settings.db.db_url)

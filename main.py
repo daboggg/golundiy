@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram_dialog import setup_dialogs
 
-# from bot.comands import set_commands
+from bot.comands import set_commands
 from bot.core import bot, scheduler
 from bot.dialogs.main_dialog.main_dialog import main_dialog
 # from bot.dialogs.list_reminders_dialog import list_reminders_dialog
@@ -19,7 +19,6 @@ from settings import settings
 
 
 async def start_bot(bot: Bot):
-    pass
     # async with aiosqlite.connect(settings.db.db_name) as db:
     #     await db.execute('''
     #         CREATE TABLE IF NOT EXISTS users (
@@ -30,14 +29,14 @@ async def start_bot(bot: Bot):
     #             email TEXT
     #         )
     #     ''')
-    # await set_commands(bot)
-    # await bot.send_message(settings.bots.admin_id, text='Бот запущен')
+    await set_commands(bot)
+    await bot.send_message(settings.bots.admin_id, text='Бот запущен')
 
 
 async def stop_bot(bot: Bot):
     pass
-    # await bot.send_message(settings.bots.admin_id, text='Бот остановлен')
-    # scheduler.shutdown()
+    await bot.send_message(settings.bots.admin_id, text='Бот остановлен')
+    scheduler.shutdown()
 
 
 async def start():

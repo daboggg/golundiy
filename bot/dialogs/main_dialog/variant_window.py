@@ -12,7 +12,7 @@ async def on_variant_selected(callback: CallbackQuery, button: Button,
     await manager.switch_to(MainSG.get_period)
 
 variant_window = Window(
-    Const(Bold("📄 Выберите вариант:").as_html()),
+    Const(Bold("❓ Что вам послать?").as_html()),
     Row(
         Button(id='1', text=Const("анекдот"), on_click=on_variant_selected),
         Button(id='2', text=Const("афоризм"), on_click=on_variant_selected),

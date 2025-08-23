@@ -22,7 +22,7 @@ cmd_router = Router()
 # отрабатывает по команде /start
 @cmd_router.message(CommandStart())
 async def list_reminders(_, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(MainSG.get_variant, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(MainSG.get_variant, mode=StartMode.RESET_STACK, data={'count': 0, 'times': []})
 
 
 

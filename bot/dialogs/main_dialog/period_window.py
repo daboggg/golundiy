@@ -1,7 +1,7 @@
 from aiogram.types import CallbackQuery
 from aiogram.utils.formatting import Bold
 from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.kbd import Row, Button
+from aiogram_dialog.widgets.kbd import Row, Button, Back
 from aiogram_dialog.widgets.text import Const, Format
 
 from bot.send_message import send_message
@@ -16,32 +16,20 @@ async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
 
 
 async def on_period_selected(callback: CallbackQuery, button: Button,
-                              manager: DialogManager) -> None:
-    print(button.widget_id)
+                             manager: DialogManager) -> None:
 
-    apscheduler = manager.middleware_data.get('apscheduler')
-
-    apscheduler.add_job(send_message,
-                        trigger='cron',
-                        # run_date=datetime.now() + timedelta(seconds=10),
-                        # hour=11,
-                        minute='*',
-                        kwargs={
-                            'msg': 'test_message',
-                            'func': get_random_phrase
-                        })
-
-    # manager.dialog_data["selected_variant"] = await button.text.render_text(manager.dialog_data, manager)
-    await manager.switch_to(MainSG.result)
+    manager.dialog_data["selected_period"] = int(button.widget_id)
+    await manager.switch_to(MainSG.get_time)
 
 
 period_window = Window(
-    Format("🚩 Выбран: {selected_variant}"),
-    Const(Bold("📄 Выберите период:").as_html()),
+    Format(Bold("🕊 Вышлем {selected_variant}").as_html()),
+    Const(Bold("📋 Выберите период:").as_html()),
     Row(
-        Button(id='1', text=Const("1 раз в день"), on_click=on_period_selected),
-        Button(id='2', text=Const("2 раза в день"), on_click=on_period_selected),
+        Button(id='1', text=Const("1️⃣ раз в день"), on_click=on_period_selected),
+        Button(id='2', text=Const("2️⃣ раза в день"), on_click=on_period_selected),
     ),
+    Back(text=Const('🔙 назад')),
     state=MainSG.get_period,
     getter=getter,
 )
