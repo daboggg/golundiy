@@ -22,7 +22,7 @@ async def get_random_content(variant:str)->str:
     if status == 200:
         soup = BeautifulSoup(text, 'lxml')
         texts = soup.find_all('div', attrs={'class': 'text'})
-        if variant == 'стишок':
+        if variant in ['стишок', 'историю'] :
 
             return ''.join([str(item) for item in random.choice(texts).contents]).replace('<br/>','\n')
 
