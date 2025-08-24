@@ -10,8 +10,8 @@ from aiogram_dialog.widgets.text import Const, Format
 from bot.action import add_task
 from bot.send_message import send_message
 from bot.state_groups import MainSG
-from bot.utils import check_time_format
-from parsers.anekdot_ru import get_random_phrase
+from bot.utils import check_time_format, set_time_message
+from parsers.anekdot_ru import get_random_content
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
@@ -19,10 +19,7 @@ async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
     selected_variant = dialog_manager.dialog_data.get('selected_variant')
     times = dialog_manager.start_data.get('times')
 
-    msg = (f'Выбран {selected_variant} {selected_period} раз(а) в день.\n'
-           f'В {times[0]}')
-    if len(times) > 1:
-        msg += f' и в {times[1]}'
+    msg = set_time_message(selected_variant, selected_period, times)
 
     return {'msg': msg}
 
@@ -30,7 +27,7 @@ async def on_confirm_selected(callback: CallbackQuery, button: Button,
                              manager: DialogManager) -> None:
     add_task(manager)
     await callback.answer()
-    await callback.message.answer('Выбор сделан, чтобы начать сначала нажмите меню -> выбрать контент')
+    await callback.message.answer(Bold('👍Выбор сделан.\n\nЧтобы начать сначала нажмите 📋меню ➡️ выбрать контент').as_html())
     await manager.reset_stack()
 
 async def back(

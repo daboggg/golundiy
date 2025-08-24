@@ -10,18 +10,18 @@ from aiogram_dialog.widgets.text import Const, Format
 from bot.send_message import send_message
 from bot.state_groups import MainSG
 from bot.utils import check_time_format
-from parsers.anekdot_ru import get_random_phrase
+from parsers.anekdot_ru import get_random_content
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
     period = dialog_manager.dialog_data.get('selected_period')
     if period == 1:
-        return {'msg': f'Пожалуйста введите время в формате чч:мм'}
+        return {'msg': f'✏️ Пожалуйста введите ⏱️время в формате чч:мм'}
     else:
         if dialog_manager.start_data.get('count') == 0:
-            return {'msg': f'Пожалуйста введите первое время в формате чч:мм'}
+            return {'msg': f'✏️Пожалуйста введите первое ⏱️время в формате чч:мм'}
         else:
-            return {'msg': f'Пожалуйста введите второе время в формате чч:мм'}
+            return {'msg': f'✏️ Пожалуйста введите второе ⏱️время в формате чч:мм'}
 
 async def success(message: Message,
                   text_input: TextInput,

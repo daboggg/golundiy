@@ -14,8 +14,13 @@ async def on_variant_selected(callback: CallbackQuery, button: Button,
 variant_window = Window(
     Const(Bold("❓ Что вам послать?").as_html()),
     Row(
-        Button(id='1', text=Const("анекдот"), on_click=on_variant_selected),
-        Button(id='2', text=Const("афоризм"), on_click=on_variant_selected),
+        Button(id='anecdote', text=Const("анекдот"), on_click=on_variant_selected),
+        Button(id='phrase', text=Const("фразу"), on_click=on_variant_selected),
+
+    ),
+    Row(
+        Button(id='story', text=Const("историю"), on_click=on_variant_selected),
+        Button(id='poem', text=Const("стишок"), on_click=on_variant_selected),
     ),
     state=MainSG.get_variant,
 )

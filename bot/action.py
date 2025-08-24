@@ -1,7 +1,7 @@
 from aiogram_dialog import DialogManager
 
 from bot.send_message import send_message
-from parsers.anekdot_ru import get_random_phrase
+from parsers.anekdot_ru import get_random_content
 
 
 def add_task(manager: DialogManager):
@@ -10,14 +10,13 @@ def add_task(manager: DialogManager):
     apscheduler = manager.middleware_data.get('apscheduler')
     user_id = manager.event.from_user.id
 
-    if variant == 'афоризм':
-        for time in times:
-            time_lst = time.split(':')
-            apscheduler.add_job(send_message,
-                                trigger='cron',
-                                hour=int(time_lst[0]),
-                                minute=int(time_lst[1]),
-                                kwargs={
-                                    'user_id': user_id,
-                                    'func': get_random_phrase
-                                })
+    for time in times:
+        time_lst = time.split(':')
+        apscheduler.add_job(send_message,
+                            trigger='cron',
+                            hour=int(time_lst[0]),
+                            minute=int(time_lst[1]),
+                            kwargs={
+                                'variant': variant,
+                                'user_id': user_id,
+                            })
