@@ -7,3 +7,7 @@ class MainSG(StatesGroup):
     get_time = State()
     set_time = State()
     confirm = State()
+
+class ListSubscriptionsSG(StatesGroup):
+    get_subscriptions = State()
+    show_subscription = State()

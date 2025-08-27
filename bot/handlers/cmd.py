@@ -9,7 +9,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from bot.keyboards.choice_period import choice_period
 from bot.send_message import send_message
-from bot.state_groups import MainSG
+from bot.state_groups import MainSG, ListSubscriptionsSG
 from settings import settings
 
 # from aiogram_dialog import DialogManager, StartMode
@@ -49,11 +49,11 @@ async def list_reminders(_, dialog_manager: DialogManager) -> None:
 
 
 # # отрабатывает по команде /list, отображает список напоминаний
-# @cmd_router.message(Command(commands="list"))
-# async def list_reminders(_, dialog_manager: DialogManager) -> None:
-#     await dialog_manager.start(ListOfRemindersSG.start, mode=StartMode.RESET_STACK)
-#
-#
+@cmd_router.message(Command(commands="list"))
+async def list_reminders(_, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(ListSubscriptionsSG.get_subscriptions, mode=StartMode.RESET_STACK)
+
+
 # # отрабатывает по команде /help
 # @cmd_router.message(Command(commands="help"))
 # async def list_reminders(message: Message) -> None:

@@ -6,6 +6,13 @@ from parsers.anekdot_ru import get_random_content
 
 
 async def send_message(variant: str ,user_id: int) -> None:
-    result = await get_random_content(variant)
-    msg = format_content(result, variant)
-    await bot.send_message(user_id, msg)
+    result: str|dict = await get_random_content(variant)
+    title = format_content(variant)
+    if variant in ['карикатуру', 'мем']:
+        await bot.send_message(user_id, title)
+        if result.get('type') == 'image':
+            await bot.send_photo(user_id,photo=result.get('src'), caption=result.get('caption'))
+        else:
+            await bot.send_video(user_id, video=result.get('src'), caption=result.get('caption'))
+    else:
+        await bot.send_message(user_id, title + result)

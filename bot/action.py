@@ -13,6 +13,7 @@ def add_task(manager: DialogManager):
     for time in times:
         time_lst = time.split(':')
         apscheduler.add_job(send_message,
+                            name=str(user_id),
                             trigger='cron',
                             hour=int(time_lst[0]),
                             minute=int(time_lst[1]),

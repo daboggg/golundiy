@@ -26,17 +26,21 @@ def set_time_message(
         return f'✔️Выбрана история {period}{time}'
     if selected_variant == 'стишок':
         return f'✔️Выбран стишок {period}{time}'
+    if selected_variant == 'карикатуру':
+        return f'✔️Выбрана карикатура {period}{time}'
+    if selected_variant == 'мем':
+        return f'✔️Выбран мем {period}{time}'
 
-
-def format_content(text: str, variant: str) -> str:
-    variants = {
+variants = {
         'анекдот':'анекдот',
         'историю':'история',
         'фразу':'фраза',
         'стишок':'стишок',
+        'карикатуру':'карикатура',
+        'мем':'мем',
     }
-
-    return Bold(f'Вот вам {variants[variant]}:\n\n').as_html() + text
+def format_content(variant: str) -> str:
+    return Bold(f'Вот вам {variants[variant]}:\n\n').as_html()
 
 def digit_to_emoji(time: str) -> str:
     digits_lst = {
