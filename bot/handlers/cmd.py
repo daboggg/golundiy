@@ -10,6 +10,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from bot.keyboards.choice_period import choice_period
 from bot.send_message import send_message
 from bot.state_groups import MainSG, ListSubscriptionsSG
+from database.database import create_user
 from settings import settings
 
 # from aiogram_dialog import DialogManager, StartMode
@@ -21,18 +22,15 @@ cmd_router = Router()
 
 # отрабатывает по команде /start
 @cmd_router.message(CommandStart())
-async def list_reminders(_, dialog_manager: DialogManager) -> None:
+async def start_cmd(message:Message, dialog_manager: DialogManager) -> None:
+    await create_user(message)
     await dialog_manager.start(MainSG.get_variant, mode=StartMode.RESET_STACK, data={'count': 0, 'times': []})
 
 
 
 # @cmd_router.message(CommandStart())
 # async def cmd_start(message: Message,bot: Bot, apscheduler: AsyncIOScheduler) -> None:
-#     # async with aiosqlite.connect(settings.db.db_name) as db:
-#     #     await db.execute('''
-#     #     INSERT INTO users (user_id, firstname) VALUES (?, ?)
-#     #     ''', (message.from_user.id, message.from_user.first_name))
-#     #     await db.commit()
+
 #     apscheduler.add_job(send_message,
 #                         trigger='cron',
 #                         # run_date=datetime.now() + timedelta(seconds=10),

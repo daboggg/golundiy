@@ -1,7 +1,6 @@
 import asyncio
 import logging
 
-import aiosqlite
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram_dialog import setup_dialogs
@@ -10,32 +9,19 @@ from bot.comands import set_commands
 from bot.core import bot, scheduler
 from bot.dialogs.list_subscriptions_dialog.list_subscriptions_dialog import list_subscriptions_dialog
 from bot.dialogs.main_dialog.main_dialog import main_dialog
-# from bot.dialogs.list_reminders_dialog import list_reminders_dialog
-# from bot.dialogs.main_dialog import main_dialog
 from bot.handlers.cmd import cmd_router
-# from bot.handlers.done_reminder import done_reminder_router
-# from bot.handlers.other import other_router
 from bot.middlewares.apschedmiddleware import SchedulerMiddleware
+from database.database import create_tables
 from settings import settings
 
 
 async def start_bot(bot: Bot):
-    # async with aiosqlite.connect(settings.db.db_name) as db:
-    #     await db.execute('''
-    #         CREATE TABLE IF NOT EXISTS users (
-    #             id INTEGER PRIMARY KEY,
-    #             user_id INTEGER NOT NULL,
-    #             firstname TEXT,
-    #             lastnave TEXT,
-    #             email TEXT
-    #         )
-    #     ''')
+    await create_tables()
     await set_commands(bot)
     await bot.send_message(settings.bots.admin_id, text='Бот запущен')
 
 
 async def stop_bot(bot: Bot):
-    pass
     await bot.send_message(settings.bots.admin_id, text='Бот остановлен')
     scheduler.shutdown()
 
