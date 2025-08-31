@@ -7,6 +7,7 @@ from aiogram_dialog import setup_dialogs
 
 from bot.comands import set_commands
 from bot.core import bot, scheduler
+from bot.dialogs.admin_dialog.admin_dialog import admin_dialog
 from bot.dialogs.list_subscriptions_dialog.list_subscriptions_dialog import list_subscriptions_dialog
 from bot.dialogs.main_dialog.main_dialog import main_dialog
 from bot.handlers.cmd import cmd_router
@@ -47,7 +48,8 @@ async def start():
     dp.include_routers(
         cmd_router,
         main_dialog,
-        list_subscriptions_dialog
+        list_subscriptions_dialog,
+        admin_dialog,
         # done_reminder_router,
         # main_dialog,
         # list_reminders_dialog,

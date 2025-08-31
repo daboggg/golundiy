@@ -1,18 +1,18 @@
-import operator
 import datetime
+import operator
 from typing import Any
 
 from aiogram.types import CallbackQuery
 from aiogram.utils.formatting import Bold
 from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.kbd import Row, Button, ScrollingGroup, Select
+from aiogram_dialog.widgets.kbd import ScrollingGroup, Select
 from aiogram_dialog.widgets.text import Const, Format, Case
 from apscheduler.job import Job
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from bot.state_groups import MainSG, ListSubscriptionsSG
+from bot.state_groups import ListSubscriptionsSG
 from bot.utils import variants
-
+from database.database import set_status_active_user
 
 
 async def getter(dialog_manager: DialogManager, **kwargs):
@@ -21,6 +21,8 @@ async def getter(dialog_manager: DialogManager, **kwargs):
     all_jobs: list[Job] = apscheduler.get_jobs()
 
     user_jobs: list[Job] = [job for job in all_jobs if job.name == str(user_id)]
+    if len(user_jobs) == 0:
+        await set_status_active_user(user_id, 0)
     result = list()
     for job in user_jobs:
         variant: str = variants.get(job.kwargs.get('variant'))
