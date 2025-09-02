@@ -48,6 +48,11 @@ async def get_user(user_id: int):
         cursor: Cursor = await db.execute('SELECT * FROM users WHERE user_id = ?', (user_id,))
         return await cursor.fetchone()
 
+async def get_users():
+    async with aiosqlite.connect(settings.db.db_name) as db:
+        cursor: Cursor = await db.execute('SELECT * FROM users')
+        return await cursor.fetchall()
+
 async def set_status_active_user(user_id: int, status: int):
     async with aiosqlite.connect(settings.db.db_name) as db:
         await db.execute('UPDATE users SET is_active = ? WHERE user_id = ?', (status, user_id,))

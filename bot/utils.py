@@ -61,5 +61,4 @@ def digit_to_emoji(time: str) -> str:
             res += digits_lst[int(item)]
         else:
             res += item
-    print(res)
     return res

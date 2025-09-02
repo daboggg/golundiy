@@ -2,8 +2,12 @@ from aiogram_dialog import Dialog
 
 from bot.dialogs.admin_dialog.menu_window import menu_window
 from bot.dialogs.admin_dialog.statistics_window import statistics_window
+from bot.dialogs.admin_dialog.user_detail_window import user_detail_window
+from bot.dialogs.admin_dialog.users_window import users_window
 
 admin_dialog = Dialog(
     menu_window,
     statistics_window,
+    users_window,
+    user_detail_window,
 )

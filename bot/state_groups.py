@@ -14,3 +14,5 @@ class ListSubscriptionsSG(StatesGroup):
 class AdminSG(StatesGroup):
     menu = State()
     statistics = State()
+    users = State()
+    user_detail = State()

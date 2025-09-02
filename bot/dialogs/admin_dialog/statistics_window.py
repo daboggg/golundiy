@@ -3,7 +3,7 @@ from collections import Counter
 from aiogram.types import CallbackQuery
 from aiogram.utils.formatting import Bold
 from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.kbd import Button, Back
+from aiogram_dialog.widgets.kbd import Button, Back, SwitchTo
 from aiogram_dialog.widgets.text import Format, Const
 from apscheduler.job import Job
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -65,7 +65,7 @@ statistics_window = Window(
     Format(Bold("Неактивных пользователей: {users_inactive}").as_html()),
     Format(Bold("{count_variants_msg}").as_html()),
     Format(Bold("Последний зарегистрировавшийся пользователь:\n {last_registered_user}").as_html()),
-    Back(text=Const('🔙 назад')),
+    SwitchTo(text=Const('🔙 назад'), state=AdminSG.menu, id='back'),
     # ScrollingGroup(
     #         Select(
     #             Format("{item[1]}: {item[2]}"),

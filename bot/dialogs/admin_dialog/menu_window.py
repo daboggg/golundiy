@@ -17,11 +17,14 @@ async def on_variant_selected(callback: CallbackQuery, button: Button,
                               manager: DialogManager) -> None:
     if button.widget_id == 'statistics':
         await manager.switch_to(AdminSG.statistics)
+    elif button.widget_id == 'users':
+        await manager.switch_to(AdminSG.users)
 
 
 menu_window = Window(
     Const(Bold("Сделайте выбор").as_html()),
     Button(id='statistics',text=Const('📈 статистика'), on_click=on_variant_selected, ),
+    Button(id='users',text=Const('👥 пользователи'), on_click=on_variant_selected, ),
     state=AdminSG.menu,
     # getter=getter
 )
