@@ -6,11 +6,14 @@ from aiogram_dialog.widgets.text import Const, Format
 
 from bot.send_message import send_message
 from bot.state_groups import MainSG
+from database.database import is_privileged_user
 from parsers.anekdot_ru import get_random_content
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
+
     return {
+        'is_privileged': await is_privileged_user(dialog_manager.event.from_user.id),
         'selected_variant': dialog_manager.dialog_data.get('selected_variant'),
     }
 
@@ -18,13 +21,17 @@ async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
 async def on_period_selected(callback: CallbackQuery, button: Button,
                              manager: DialogManager) -> None:
 
-    manager.dialog_data["selected_period"] = int(button.widget_id)
-    await manager.switch_to(MainSG.get_time)
+    if button.widget_id == 'now':
+        await manager.switch_to(MainSG.get_now)
+    else:
+        manager.dialog_data["selected_period"] = int(button.widget_id)
+        await manager.switch_to(MainSG.get_time)
 
 
 period_window = Window(
     Format(Bold("🕊 Вышлем {selected_variant}").as_html()),
     Const(Bold("📋 Выберите период:").as_html()),
+    Button(id='now', text=Const("Получить сейчас"), when='is_privileged', on_click=on_period_selected),
     Row(
         Button(id='1', text=Const("1️⃣ раз в день"), on_click=on_period_selected),
         Button(id='2', text=Const("2️⃣ раза в день"), on_click=on_period_selected),

@@ -6,6 +6,7 @@ class MainSG(StatesGroup):
     get_period = State()
     get_time = State()
     set_time = State()
+    get_now = State()
 
 class ListSubscriptionsSG(StatesGroup):
     get_subscriptions = State()
