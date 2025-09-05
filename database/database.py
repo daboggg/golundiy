@@ -103,3 +103,8 @@ async def is_privileged_user(user_id: int):
         cursor: Cursor = await db.execute('SELECT is_privileged FROM users WHERE user_id = ?', (user_id,))
         result = await cursor.fetchone()
         return bool(result[0])
+
+async def set_privileged_status(user_id: int, status: int):
+    async with aiosqlite.connect(settings.db.db_name) as db:
+        await db.execute('UPDATE users SET is_privileged = ? WHERE user_id = ?', (status, user_id,))
+        await db.commit()

@@ -17,3 +17,4 @@ class AdminSG(StatesGroup):
     statistics = State()
     users = State()
     user_detail = State()
+    set_privileges = State()

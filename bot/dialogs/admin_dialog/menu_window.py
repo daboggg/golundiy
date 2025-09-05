@@ -19,12 +19,15 @@ async def on_variant_selected(callback: CallbackQuery, button: Button,
         await manager.switch_to(AdminSG.statistics)
     elif button.widget_id == 'users':
         await manager.switch_to(AdminSG.users)
+    elif button.widget_id == 'privileges':
+        await manager.switch_to(AdminSG.set_privileges)
 
 
 menu_window = Window(
-    Const(Bold("Сделайте выбор").as_html()),
+    Const(Bold("⚖️ Сделайте выбор").as_html()),
     Button(id='statistics',text=Const('📈 статистика'), on_click=on_variant_selected, ),
     Button(id='users',text=Const('👥 пользователи'), on_click=on_variant_selected, ),
+    Button(id='privileges',text=Const('👍 привилегии'), on_click=on_variant_selected, ),
     state=AdminSG.menu,
     # getter=getter
 )
