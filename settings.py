@@ -3,6 +3,10 @@ from dataclasses import dataclass
 
 
 @dataclass
+class Custom:
+    max_subscribe: int
+
+@dataclass
 class Bots:
     bot_token: str
     admin_id: int
@@ -20,6 +24,7 @@ class Database:
 class Settings:
     bots: Bots
     db: Database
+    custom: Custom
 
 
 def get_settings(path: str):
@@ -27,6 +32,9 @@ def get_settings(path: str):
     env.read_env(path)
 
     return Settings(
+        custom=Custom(
+            max_subscribe=env.int("MAX_SUBSCRIBE"),
+        ),
         bots=Bots(
             bot_token=env.str('BOT_TOKEN'),
             admin_id=env.int('ADMIN_ID')

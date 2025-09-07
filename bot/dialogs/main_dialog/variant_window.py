@@ -27,7 +27,7 @@ async def on_variant_selected(callback: CallbackQuery, button: Button,
 variant_window = Window(
     Const(Bold("❓ Что вам послать?").as_html()),
     Row(
-        Button(id='admin', text=Const('admin'), when='is_admin', on_click=on_variant_selected),
+        Button(id='admin', text=Const('💼 admin'), when='is_admin', on_click=on_variant_selected),
     ),
     Row(
         Button(id='anecdote', text=Const("анекдот"), on_click=on_variant_selected),

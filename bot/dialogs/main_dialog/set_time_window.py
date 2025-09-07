@@ -1,18 +1,15 @@
 from typing import Any
 
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 from aiogram.utils.formatting import Bold
 from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Row, Button, Back, Next
+from aiogram_dialog.widgets.kbd import Row, Button, Back
 from aiogram_dialog.widgets.text import Const, Format
 
 from bot.action import add_task
-from bot.send_message import send_message
 from bot.state_groups import MainSG
-from bot.utils import check_time_format, set_time_message
+from bot.utils import set_time_message
 from database.database import set_status_active_user
-from parsers.anekdot_ru import get_random_content
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:

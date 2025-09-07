@@ -11,6 +11,7 @@ from bot.dialogs.admin_dialog.admin_dialog import admin_dialog
 from bot.dialogs.list_subscriptions_dialog.list_subscriptions_dialog import list_subscriptions_dialog
 from bot.dialogs.main_dialog.main_dialog import main_dialog
 from bot.handlers.cmd import cmd_router
+from bot.handlers.main import main
 from bot.middlewares.apschedmiddleware import SchedulerMiddleware
 from database.database import create_tables
 from settings import settings
@@ -46,14 +47,11 @@ async def start():
 
     # подключение роутеров
     dp.include_routers(
+        main,
         cmd_router,
         main_dialog,
         list_subscriptions_dialog,
         admin_dialog,
-        # done_reminder_router,
-        # main_dialog,
-        # list_reminders_dialog,
-        # other_router
     )
 
     # подключение диалогов

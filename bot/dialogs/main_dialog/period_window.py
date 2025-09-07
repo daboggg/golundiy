@@ -4,10 +4,8 @@ from aiogram_dialog import Window, DialogManager
 from aiogram_dialog.widgets.kbd import Row, Button, Back
 from aiogram_dialog.widgets.text import Const, Format
 
-from bot.send_message import send_message
 from bot.state_groups import MainSG
 from database.database import is_privileged_user
-from parsers.anekdot_ru import get_random_content
 
 
 async def getter(dialog_manager: DialogManager, **kwargs) -> dict[str, str]:
