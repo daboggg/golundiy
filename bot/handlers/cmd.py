@@ -12,7 +12,6 @@ cmd_router = Router()
 # отрабатывает по команде /start
 @cmd_router.message(CommandStart())
 async def start_cmd(message:Message, dialog_manager: DialogManager) -> None:
-    print(message)
     await create_user(message)
 
     kb = [

@@ -4,7 +4,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Custom:
-    max_subscribe: int
+    subscription_limit: int
+    subscription_privileged_limit: int
 
 @dataclass
 class Bots:
@@ -33,7 +34,8 @@ def get_settings(path: str):
 
     return Settings(
         custom=Custom(
-            max_subscribe=env.int("MAX_SUBSCRIBE"),
+            subscription_limit=env.int("SUBSCRIPTION_LIMIT"),
+            subscription_privileged_limit=env.int("SUBSCRIPTION_PRIVILEGED_LIMIT"),
         ),
         bots=Bots(
             bot_token=env.str('BOT_TOKEN'),

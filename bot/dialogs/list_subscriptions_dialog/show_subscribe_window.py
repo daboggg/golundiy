@@ -1,6 +1,6 @@
 from aiogram.types import CallbackQuery
 from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.kbd import Back, Button
+from aiogram_dialog.widgets.kbd import Back, Button, Row
 from aiogram_dialog.widgets.text import Format, Const
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -18,6 +18,7 @@ async def getter(dialog_manager: DialogManager, **kwargs):
 
     return {"subscribe_info": f'{variant} в {hour}:{minute}'}
 
+
 async def on_delete_selected(callback: CallbackQuery, button: Button,
                              dialog_manager: DialogManager) -> None:
     apscheduler: AsyncIOScheduler = dialog_manager.middleware_data.get("apscheduler")
@@ -30,8 +31,10 @@ async def on_delete_selected(callback: CallbackQuery, button: Button,
 show_subscribe_window = Window(
     Const('Каждый день вы получите'),
     Format('{subscribe_info}'),
-    Back(Const("Назад")),
-    Button(Const("Удалить"), id='delete_reminder', on_click=on_delete_selected),
+    Row(
+        Button(Const("Удалить"), id='delete_reminder', on_click=on_delete_selected),
+        Back(Const("Назад")),
+    ),
     state=ListSubscriptionsSG.show_subscription,
     getter=getter
 )

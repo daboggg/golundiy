@@ -4,13 +4,13 @@ from typing import Any
 
 from aiogram.types import CallbackQuery
 from aiogram.utils.formatting import Bold
-from aiogram_dialog import Window, DialogManager
-from aiogram_dialog.widgets.kbd import ScrollingGroup, Select
+from aiogram_dialog import Window, DialogManager, StartMode
+from aiogram_dialog.widgets.kbd import ScrollingGroup, Select, Start
 from aiogram_dialog.widgets.text import Const, Format, Case
 from apscheduler.job import Job
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from bot.state_groups import ListSubscriptionsSG
+from bot.state_groups import ListSubscriptionsSG, MainSG
 from bot.utils import variants
 from database.database import set_status_active_user
 
@@ -65,6 +65,8 @@ get_subscriptions_window = Window(
         height=6,
         hide_on_single_page=True,
     ),
+    Start(id='back', text=Const('назад'), state=MainSG.get_variant,
+          mode=StartMode.RESET_STACK, data={'count': 0, 'times': []}),
     state=ListSubscriptionsSG.get_subscriptions,
     getter=getter
 )
