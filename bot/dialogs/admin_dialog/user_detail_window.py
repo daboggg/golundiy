@@ -26,7 +26,7 @@ async def getter(dialog_manager: DialogManager, **kwargs):
         hour = uj.next_run_time.hour
         minute = uj.next_run_time.minute if uj.next_run_time.minute > 9 else f'0{uj.next_run_time.minute}'
         time: str = f'{hour}:{minute}'
-        msg += f'🚩 {uj.kwargs.get('variant')} в {digit_to_emoji(time)}\n'
+        msg += f'🚩 {uj.kwargs.get("variant")} в {digit_to_emoji(time)}\n'
 
     return {
         'name': name,
