@@ -17,7 +17,6 @@ async def getter(dialog_manager: DialogManager, **kwargs):
     apscheduler: AsyncIOScheduler = dialog_manager.middleware_data.get('apscheduler')
     all_jobs: list[Job] = apscheduler.get_jobs()
     counter = Counter(getattr(job, 'name') for job in all_jobs)
-    print(counter)
     all_users = await get_users()
     users_list = []
 

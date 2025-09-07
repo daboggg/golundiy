@@ -12,5 +12,4 @@ main = Router()
 
 @main.message(F.text == 'Старт')
 async def start_redirect(message:Message, dialog_manager: DialogManager):
-    print("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ")
     await start_cmd(message, dialog_manager)

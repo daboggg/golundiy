@@ -33,7 +33,7 @@ async def getter(dialog_manager: DialogManager, **kwargs):
 async def on_again_selected(callback: CallbackQuery, button: Button,
                             manager: DialogManager) -> None:
     if button.widget_id == 'now':
-        print(button.widget_id)
+        pass
     else:
         manager.dialog_data["selected_period"] = int(button.widget_id)
         await manager.switch_to(MainSG.get_time)
