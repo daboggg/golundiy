@@ -48,7 +48,8 @@ async def get_random_content(variant: str) -> str | dict:
         phrases = [item.text for item in items]
         return random.choice(phrases)
     else:
-        return 'что то пошло не так'
+        raise ConnectionError
+        # return 'что то пошло не так'
 
 
 if __name__ == '__main__':
